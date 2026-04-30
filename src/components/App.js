@@ -39,13 +39,14 @@ function App() {
 
   let displayShows = shows;
   if (filterByRating) {
-    displayShows = displayShows.filter((s) => {
-      s.rating.average >= filterByRating;
-    });
+    displayShows = displayShows.filter(
+      (s) => s.rating.average >= filterByRating,
+    );
   }
 
   return (
     <div>
+      {console.log(handleFilter)}
       <Nav
         handleFilter={handleFilter}
         handleSearch={handleSearch}

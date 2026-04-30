@@ -1,6 +1,6 @@
 import React from "react";
 
-function Filter(props) {
+export default function Filter(props) {
   return (
     <div>
       <h4> Filter By Rating </h4>
