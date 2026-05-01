@@ -32,10 +32,13 @@ function App() {
 
   function selectShow(show) {
     Adapter.getShowEpisodes(show.id).then((episodes) => {
+      // console.log("show  : ", show)
+      //  console.log("episode  : ", episodes);
       setSelectedShow(show);
       setEpisodes(episodes);
     });
   }
+  // {console.log("App : ", episodes)}
 
   let displayShows = shows;
   if (filterByRating) {
@@ -46,7 +49,9 @@ function App() {
 
   return (
     <div>
-      {console.log(handleFilter)}
+      {" "}
+      {console.log("App : ", episodes)}
+      {/* {console.log(handleFilter)} */}
       <Nav
         handleFilter={handleFilter}
         handleSearch={handleSearch}

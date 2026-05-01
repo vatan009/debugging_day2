@@ -17,12 +17,15 @@ function SelectedShowContainer(props) {
       });
     }
   }
+  // console.log(props)
 
   function mapEpisodes() {
-    return props.episodes.map((e) => {
+    console.log("inside the mapEpisodes : " , props)
+    props.allepisodes?.map((e) => {
       if (e.season == selectedSeason) {
         return <Episode eachEpisode={e} key={e.id} />;
       }
+      return null;
     });
   }
 

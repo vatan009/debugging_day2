@@ -16,10 +16,10 @@ function Nav(props) {
         </Menu.Item>
         {/* {console.log(props.handleFilter())} */}
         <Menu.Item position="right">
-          {console.log("inside nav ----------------------------")}
+          {/* {console.log("inside nav ----------------------------")} */}
           <Filter handleFilter={props.handleFilter} />
           {/* {console.log(props.length())} */}
-          {console.log("inside nav ----------------------------")}
+          {/* {console.log("inside nav ----------------------------")} */}
         </Menu.Item>
         <Menu.Item position="right">
           <Search handleSearch={props.handleSearch} search={props.search} />

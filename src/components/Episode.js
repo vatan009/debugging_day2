@@ -5,7 +5,7 @@ function Episode(props) {
 
   return (
     <div>
-      Episode {myEpisode.number} - {myEpisode.name}
+      pisode {myEpisode.number} - {myEpisode.name}E
     </div>
   );
 }
