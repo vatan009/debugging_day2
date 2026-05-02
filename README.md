@@ -1,43 +1,231 @@
-# Debugging Practice: Binge-Finder
 
-## Instructions
+```md
+# JavaScript / React Notes
 
-You and your team just crushed a project for one of your clients with time to
-spare! (Or so you thought) As you were getting ready to celebrate one of your
-teammates expressed his frustration with the project and QUIT! He decided to
-leave you with a little gift before his departure...
+## 1. `function App(props)` vs `function App({ name })`
 
-You now have a project with an unknown amount of bugs and your client is coming
-in for a presentation tonight _insert panicked emoji_ Review the code that your
-team has written to discover and kill all the bugs in your application for a
-smooth presentation. This is an important client, so you'll want to make sure
-all the listed deliverables are working, and that all errors and console
-warnings have been cleared. Finish off with a round of celebratory drinks!
+### Full Props Object
 
-## Setup
+```js
+function App(props) {
+  return <h1>{props.name}</h1>;
+}
 
-- Clone this repository and cd into it.
-- Run `npm install` to install your dependencies.
-- Run `npm start` and the project will be running on `localhost:3000`.
+```
 
-## Deliverables
+-   `props` contains all passed values.
 
-1. A user should be able to click on a show and have the details show up on the
-   left.
+-   Access using `props.name`, `props.age`.
 
-2. A user should be able to search for a show.
 
-3. A user should be able to filter the list of shows by their rating.
+Example:
 
-4. A user should be able to display seasons and episodes when a show is
-   selected.
+```js
+<App name="Vatan" age={22} />
 
-## BONUS
+```
 
-LAZY LOADING!! Your initial fetch only grabbed the most popular 240 shows on the
-API. Implement lazy loading to have your application do another fetch once it
-gets to the bottom of the screen.
+```js
+props = { name: "Vatan", age: 22 }
 
-**TIP**: change your fetch to reflect the page numbers example:
+```
 
-[http://api.tvmaze.com/shows?page=1](http://api.tvmaze.com/shows?page=1)
+----------
+
+### Destructuring Props
+
+```js
+function App({ name }) {
+  return <h1>{name}</h1>;
+}
+
+```
+
+-   Directly extracts `name` from props.
+
+-   Cleaner syntax.
+
+
+Same as:
+
+```js
+const name = props.name;
+
+```
+
+----------
+
+### Best Practice
+
+```js
+function Card({ title, price }) {
+  return <p>{title} - {price}</p>;
+}
+
+```
+
+----------
+
+## 2. `filter()` Arrow Function Styles
+
+### Implicit Return
+
+```js
+array.filter((element) => element >= 10);
+
+```
+
+-   No `{}` used.
+
+-   Automatically returns result.
+
+
+----------
+
+### Explicit Return
+
+```js
+array.filter((element) => {
+  return element >= 10;
+});
+
+```
+
+-   `{}` block used.
+
+-   Must write `return`.
+
+
+----------
+
+### Common Mistake
+
+```js
+array.filter((element) => {
+  element >= 10;
+});
+
+```
+
+❌ No return → empty result.
+
+----------
+
+### Example
+
+```js
+const arr = [5, 10, 15, 2];
+
+arr.filter(x => x >= 10);
+// [10, 15]
+
+```
+
+----------
+
+## 3. `fetch()` + Promise + async/await
+
+### `fetch()` Returns Promise
+
+```js
+let data = fetch(url);
+
+```
+
+Actual result:
+
+```js
+Promise
+
+```
+
+-   Not immediate data.
+
+
+----------
+
+### Using `.then()`
+
+```js
+function getData() {
+  return fetch(url).then(res => res.json());
+}
+
+```
+
+-   Waits for response.
+
+-   Converts to JSON.
+
+
+----------
+
+### Using `async/await`
+
+```js
+async function getData2() {
+  const res = await fetch(url);
+  return await res.json();
+}
+
+```
+
+-   Cleaner syntax.
+
+-   `await` waits for result.
+
+
+----------
+
+## Important Rules
+
+1.  `fetch()` returns Promise, not direct data.
+
+2.  `.then()` runs after data arrives.
+
+3.  `async` needed when using `await`.
+
+4.  Both styles handle async code.
+
+
+----------
+
+## Quick Memory Tricks
+
+### Props
+
+```js
+(props)      // full object
+({name})     // direct extraction
+
+```
+
+### Filter
+
+```js
+x => x > 5                // auto return
+x => { return x > 5 }    // manual return
+
+```
+
+### Fetch
+
+```js
+.then()   // promise style
+await     // async style
+
+```
+
+----------
+
+## Final Truth
+
+Most beginner bugs happen because of:
+
+-   Wrong prop names
+
+-   Missing `return`
+
+-   Thinking `fetch()` gives data instantly
+
+-   Confusing props object vs destructuring

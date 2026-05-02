@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Episode from "./Episode";
 
 function SelectedShowContainer(props) {
-  const selectedSeason = useState(1);
+  const [selectedSeason,setSelectedSeason] = useState(1);
+
 
   function mapSeasons() {
-    if (!!props.episodes) {
-      let seasons = props.episodes.map((e) => e.season).unique();
+    console.log('inside the map seeason function')
+    console.log(props)
+    let arr = props.allEpisodes;
+    console.log (arr)
+
+    console.log(typeof(arr))
+    if ( props.allEpisodes) {
+      let seasons = props.allEpisodes.map((e) => e.season).unique();
 
       return seasons.map((s) => {
         return (
@@ -16,27 +23,37 @@ function SelectedShowContainer(props) {
         );
       });
     }
+    else {
+         console.log("no valid seasonsm found");
+
+    }
+
   }
   // console.log(props)
 
   function mapEpisodes() {
-    console.log("inside the mapEpisodes : " , props)
-    props.allepisodes?.map((e) => {
+    console.log("inside the mapEpisodes : ", props)
+    console.log(selectedSeason)
+    return props.allEpisodes?.map((e) => {
       if (e.season == selectedSeason) {
         return <Episode eachEpisode={e} key={e.id} />;
       }
       return null;
     });
+      console.log("outsied the mapEpisodes : ", props);
   }
-
+  // useEffect(() => {
+  //   mapEpisodes();
+  // },[selectedSeason])
   function handleSelectionChange(e) {
-    selectedSeason = e.target.value;
+    setSelectedSeason(e.target.value);
   }
 
   const { selectedShow } = props;
 
   return (
     <div style={{ position: "static" }}>
+      {console.log("props oi selected/s : ",props)}
       <h2>{selectedShow.name}</h2>
       <img src={selectedShow.image.medium} alt="" />
       <p dangerouslySetInnerHTML={{ __html: selectedShow.summary }}></p>
@@ -46,7 +63,7 @@ function SelectedShowContainer(props) {
       <select style={{ display: "block" }} onChange={handleSelectionChange}>
         {mapSeasons()}
       </select>
-      {mapEpisodes()}
+      {mapEpisodes( )}
     </div>
   );
 }
